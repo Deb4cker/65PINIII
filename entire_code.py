@@ -90,3 +90,5 @@ print("F1-score do modelo GradientBoosting no conjunto de validação:", gb_f1_s
 # Calcular o F1-score para as previsões do modelo SVM
 svm_f1_score = f1_score(y_validation, svm_val_predictions, average='weighted')
 print("F1-score do modelo SVM no conjunto de validação:", svm_f1_score)
+
+#Lembrar ana fábia de criar um notebook para cada modelo
