@@ -1,23 +1,26 @@
 from flask import Flask, jsonify, request, send_file
 import os
+import classificationService as service
 from flask_cors import CORS
 
 def classify(file, option):
-    file_path = None
+    file_path = 'uploads/'
     if option == 'Random Forest':
-        file_path = os.path.join('uploads', "RandomForest.csv")
+        file_path += 'random_forest.csv'
         file = randomForestClassification(file)
+        file.save(file_path)
     else:
-        file_path = os.path.join('uploads', "DecisionTree.csv")
+        file_path += 'decision_tree.csv'
         file = decisionTreeClassification(file)
+        file.save(file_path)
 
     return file_path
 
 def randomForestClassification(file):
-    return file
+    return service.randomForestClassification(file)
 
 def decisionTreeClassification(file):
-    return file
+    return service.decisionTreeClassification(file)
 
 app = Flask(__name__)
 CORS(app)

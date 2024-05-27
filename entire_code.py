@@ -4,9 +4,10 @@ from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, f1_score
+import joblib
 
 # Carregar dados
-fruits_file_path = 'frutas.csv'
+fruits_file_path = 'data/frutas.csv'
 fruits_data = pd.read_csv(fruits_file_path)
 
 # Separar características (X) e classes (y)
@@ -91,4 +92,7 @@ print("F1-score do modelo GradientBoosting no conjunto de validação:", gb_f1_s
 svm_f1_score = f1_score(y_validation, svm_val_predictions, average='weighted')
 print("F1-score do modelo SVM no conjunto de validação:", svm_f1_score)
 
-#Lembrar ana fábia de criar um notebook para cada modelo
+# Salvar o modelo de machine learning na pasta /models
+
+joblib.dump(fruits_random_forest_model, 'models/random_forest_model.pkl')
+joblib.dump(fruits_decision_tree_model, 'models/decision_tree_model.pkl')
