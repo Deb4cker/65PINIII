@@ -1,12 +1,13 @@
 import pandas as pd
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, RandomizedSearchCV
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier
 from sklearn.tree import DecisionTreeClassifier
 from sklearn.svm import SVC
 from sklearn.metrics import accuracy_score, f1_score
 import joblib
+from imblearn.over_sampling import SMOTE
 
-# Carregar dados
+# Carregar dado
 fruits_file_path = 'data/frutas.csv'
 fruits_data = pd.read_csv(fruits_file_path)
 
@@ -14,11 +15,34 @@ fruits_data = pd.read_csv(fruits_file_path)
 X = fruits_data.drop(columns=['classe'])
 y = fruits_data['classe']
 
+X_resampled, y_resampled = SMOTE().fit_resample(X, y)
+
 # Dividir os dados em treinamento (70%) e teste + validação (30%)
-X_train, X_test_val, y_train, y_test_val = train_test_split(X, y, test_size=0.3, random_state=42, stratify=y)
+X_train, X_test_val, y_train, y_test_val = train_test_split(X_resampled, y_resampled, test_size=0.3, random_state=42, stratify=y_resampled)
 
 # Dividir dados de teste + validação em teste (15%) e validação (15%)
 X_test, X_validation, y_test, y_validation = train_test_split(X_test_val, y_test_val, test_size=0.5, random_state=42, stratify=y_test_val)
+
+param_grid_dt = {
+        'criterion': ['gini', 'entropy'],
+        'splitter': ['best', 'random'],
+        'max_depth': [None, 8, 9, 10, 11, 12, 15, 20],
+        'min_samples_split': [2, 3, 4, 5, 10, 15],
+        'min_samples_leaf': [2, 3, 4, 5, 6, 10]
+    }
+
+grid_search_dt = RandomizedSearchCV(estimator=DecisionTreeClassifier(), param_distributions=param_grid_dt, n_iter=100,
+                                    cv=5, scoring='accuracy', n_jobs=-1)
+grid_search_dt.fit(X_train, y_train)
+
+print("Grid for the Decision Tree")
+print(" ")
+print("Best Hyperparameters:")
+print(grid_search_dt.best_params_)
+print(" ")
+print("Performance on the Validation Set:")
+print(grid_search_dt.best_score_)
+print(" ")
 
 # Inicializar e treinar o modelo RandomForest
 fruits_random_forest_model = RandomForestClassifier(random_state=1)
