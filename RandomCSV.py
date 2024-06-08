@@ -5,8 +5,8 @@ import pandas as pd
 data = pd.read_csv('data/frutas.csv')
 
 # Obter o número de amostras
-num_samples = len(data)
-
+# num_samples = len(data)
+num_samples = 5
 # Gerar novos dados aleatórios para cada coluna
 
 
