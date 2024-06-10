@@ -3,7 +3,7 @@ from sklearn.model_selection import train_test_split
 import DecisionTree
 import RandomForest
 import matplotlib.pyplot as plt
-
+import TestModels
 
 # importar as bibliotecas necessárias
 from imblearn.under_sampling import RandomUnderSampler
@@ -51,8 +51,11 @@ X_train, X_test_val, y_train, y_test_val = train_test_split(X_resampled, y_resam
 X_test, X_validation, y_test, y_validation = train_test_split(X_test_val, y_test_val, test_size=0.5, random_state=42, stratify=y_test_val)
 
 tree = DecisionTree
-tree.initTrain(X_train, y_train, X_validation, y_validation, X_test, y_test)
+tree.initTrain(X_train, y_train, X_validation, y_validation)
 
 forest = RandomForest
-forest.initTrain(X_train, y_train, X_validation, y_validation, X_test, y_test)
+forest.initTrain(X_train, y_train, X_validation, y_validation)
+
+test = TestModels
+test.init(X_test, y_test)
 

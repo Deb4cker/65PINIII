@@ -9,7 +9,7 @@ def __init__(self):
     pass
 
 
-def initTrain(X_train, y_train, X_validation, y_validation, X_test, y_test):
+def initTrain(X_train, y_train, X_validation, y_validation):
     param_grid_dt = {
         'criterion': ['gini', 'entropy'],
         'splitter': ['best', 'random'],
@@ -21,7 +21,7 @@ def initTrain(X_train, y_train, X_validation, y_validation, X_test, y_test):
                                   cv=5, scoring='accuracy', n_jobs=-1)
     grid_search_dt.fit(X_train, y_train)
 
-    print("-----------Decision Tree-----------")
+    print("-----------Decision Tree Train-----------")
     print("Grid for the Decision Tree")
     print("Best Hyperparameters: %s", grid_search_dt.best_params_)
     print("Performance on the Validation Set: %s", grid_search_dt.best_score_)
@@ -37,13 +37,4 @@ def initTrain(X_train, y_train, X_validation, y_validation, X_test, y_test):
     print("Validation Set Performance:")
     print("Accuracy: %s", dt_val_accuracy)
     print("F1-score: %s", dt_f1_score)
-
-    # Fazer previsões com o conjunto de teste e calcular a acurácia e f1_score
-    dt_test_predictions = fruits_decision_tree_model.predict(X_test)
-    dt_test_accuracy = accuracy_score(y_test, dt_test_predictions)
-    dt_test_f1_score = f1_score(y_test, dt_test_predictions, average='weighted')
-    print("Validation Set Performance Decision Tree:")
-    print("Test Set Decision Tree Accuracy: %s", dt_test_accuracy)
-    print("Test Set Decision Tree f1 Score: %s", dt_test_f1_score)
-    print("-----------------------------------------------")
     joblib.dump(fruits_decision_tree_model, 'models/decision_tree_model.pkl')

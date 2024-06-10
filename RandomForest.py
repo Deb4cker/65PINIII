@@ -9,7 +9,7 @@ def __init__():
     pass
 
 
-def initTrain(X_train, y_train, X_validation, y_validation, X_test, y_test):
+def initTrain(X_train, y_train, X_validation, y_validation):
     param_grid_dt = {
         'criterion': ['gini', 'entropy'],
         'n_estimators': [10, 25, 35, 50],
@@ -23,7 +23,7 @@ def initTrain(X_train, y_train, X_validation, y_validation, X_test, y_test):
                                   cv=5, scoring='accuracy', n_jobs=-1)
     grid_search_dt.fit(X_train, y_train)
 
-    print("----------Random Forest-------------")
+    print("----------Random Forest Train-------------")
     print("Grid for the Random Forest")
     print("Best Hyperparameters: %s", grid_search_dt.best_params_)
     print("Performance on the Validation Set: %s", grid_search_dt.best_score_)
@@ -40,13 +40,6 @@ def initTrain(X_train, y_train, X_validation, y_validation, X_test, y_test):
     print("Validation Set Performance:")
     print("Accuracy: %s", rf_val_accuracy)
     print("F1-score: %s", rf_f1_score)
-
-    # Fazer previsões com o conjunto de teste e calcular a acurácia
-    rf_test_predictions = fruits_random_forest_model.predict(X_test)
-    rf_test_accuracy = accuracy_score(y_test, rf_test_predictions)
-    rf_test_f1_score = f1_score(y_test, rf_test_predictions, average='weighted')
-    print("Validation Set Performance Random Forest:")
-    print("Test Set Random Forest Accuracy: %s", rf_test_accuracy)
-    print("Test Set Random Forest F1 Score: %s", rf_test_f1_score)
-    print("-----------------------------------------------")
     joblib.dump(fruits_random_forest_model, 'models/random_forest_model.pkl')
+
+
