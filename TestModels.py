@@ -14,7 +14,7 @@ def init(X_test, y_test):
     try:
         model_random = joblib.load(file_path_random)
         model_tree = joblib.load(file_path_tree)
-        print("Modelo carregado com sucesso!")
+        print("Modelos carregados com sucesso!")
     except Exception as e:
         print(f"Erro ao carregar o arquivo: {e}")
         return
