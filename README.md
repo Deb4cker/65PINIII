@@ -17,9 +17,10 @@
      No macOS/Linux:
         source env/bin/activate
   Nota: Para confirmar que o ambiente virtual está ativo, verifique se o prefixo (env) aparece na linha de comando do terminal, conforme mostrado na imagem abaixo:
+
 ![image](https://github.com/Deb4cker/65PINIII-FruFruFruit/assets/95031645/b503b1b1-9210-44dd-8db7-b01a05a6f58a)
 
-  4. Instale as Dependências:
+  5. Instale as Dependências:
       Com o ambiente virtual ativo, instale as dependências listadas no arquivo requirements.txt:
          pip install -r requirements.txt
   
