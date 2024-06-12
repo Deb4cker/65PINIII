@@ -1,0 +1,10 @@
+#!/bin/sh
+'''exec' "/home/ana/Documentos/UDESC/6 Semestre/65PINIII/Back_Fru_Fru_Fruit/65PINIII-FruFruFruit/env/bin/python3.12" "$0" "$@"
+' '''
+# -*- coding: utf-8 -*-
+import re
+import sys
+from pip._internal.cli.main import main
+if __name__ == '__main__':
+    sys.argv[0] = re.sub(r'(-script\.pyw|\.exe)?$', '', sys.argv[0])
+    sys.exit(main())
